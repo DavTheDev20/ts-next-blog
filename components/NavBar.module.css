@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  height: 8vh;
+  align-items: center;
+  background-color: #f7f7f7;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-between;
+  width: 30%;
+  list-style: none;
+}
