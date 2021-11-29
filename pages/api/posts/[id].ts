@@ -1,13 +1,43 @@
 import Post from '../../../models/post';
 
 export default async function handler(req: any, res: any) {
+  const { method } = req;
   const { id } = req.query;
 
-  const post = await Post.findOne({ _id: id });
-  if (!post) {
-    res.status(200).json({ error: 'no post found with that id' });
-    return;
-  }
+  switch (method) {
+    case 'GET':
+      const post = await Post.findOne({ _id: id });
+      if (!post) {
+        res.status(200).json({ error: 'no post found with that id' });
+        return;
+      }
 
-  res.status(200).json(post);
+      res.status(200).json(post);
+      break;
+
+    case 'DELETE':
+      break;
+
+    case 'PUT':
+      const postToUpdate = await Post.findOne({ _id: id });
+      if (!postToUpdate) {
+        res.status(200).json({ error: 'no post found with that id' });
+        return;
+      }
+
+      const updatedPost = req.body;
+      const updatedPostResult = await Post.replaceOne({ _id: id }, updatedPost);
+
+      if (!updatedPostResult) {
+        res.status(400).json({ error: 'Error updating post' });
+        return;
+      }
+
+      res.status(200).json(updatedPostResult);
+
+      break;
+    default:
+      res.status(400).json('error');
+      break;
+  }
 }
