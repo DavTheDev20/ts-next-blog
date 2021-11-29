@@ -7,6 +7,6 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.Home ::-webkit-scrollbar {
-  display: none;
+.Home {
+  overflow: hidden;
 }
