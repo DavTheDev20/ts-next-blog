@@ -6,6 +6,8 @@ import { useState } from 'react';
 const Create: NextPage = () => {
   const router = useRouter();
 
+  const maxTitleCharLength = 75;
+
   const labelStyle = {
     fontSize: '1.5rem',
   };
@@ -63,14 +65,23 @@ const Create: NextPage = () => {
           }}
           value={postVals.title}
           onChange={(event) => {
+            if (titleLength > maxTitleCharLength - 1) {
+              return;
+            }
             setPostVals((prevValue) => {
               return {
                 title: event.target.value,
                 content: prevValue.content,
               };
             });
+            setTitleLength(event.target.value.length);
           }}
         />
+        <small style={{ marginLeft: '10px' }}>
+          {titleLength === 0
+            ? null
+            : maxTitleCharLength - titleLength + ' characters left'}
+        </small>
         <br />
         <label style={labelStyle}>Content</label>
         <br />
