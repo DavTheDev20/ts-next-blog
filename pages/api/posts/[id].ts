@@ -16,12 +16,27 @@ export default async function handler(req: any, res: any) {
       break;
 
     case 'DELETE':
+      const postToDelete = await Post.findOne({ _id: id });
+      if (!postToDelete) {
+        res.status(400).json({ error: 'no post found with that id' });
+        return;
+      }
+
+      const deletedPostResult = await Post.deleteOne({ _id: id });
+
+      if (!deletedPostResult) {
+        res.status(400).json({ error: 'Error deleting post' });
+        return;
+      }
+
+      res.status(200).json(deletedPostResult);
+
       break;
 
     case 'PUT':
       const postToUpdate = await Post.findOne({ _id: id });
       if (!postToUpdate) {
-        res.status(200).json({ error: 'no post found with that id' });
+        res.status(400).json({ error: 'no post found with that id' });
         return;
       }
 

@@ -15,6 +15,8 @@ const Create: NextPage = () => {
     content: '',
   });
 
+  const [titleLength, setTitleLength] = useState(0);
+
   const handleSubmission = async (event: any) => {
     event.preventDefault();
 
@@ -60,14 +62,14 @@ const Create: NextPage = () => {
             margin: '5px 0',
           }}
           value={postVals.title}
-          onChange={(event) =>
+          onChange={(event) => {
             setPostVals((prevValue) => {
               return {
                 title: event.target.value,
                 content: prevValue.content,
               };
-            })
-          }
+            });
+          }}
         />
         <br />
         <label style={labelStyle}>Content</label>
