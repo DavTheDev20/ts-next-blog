@@ -25,7 +25,7 @@ const Posts: NextPage = () => {
     <div>
       <Jumbotron content="Posts" />
       {isLoading ? (
-        <div style={{ marginLeft: '3%' }}>
+        <div style={{ marginLeft: '3%', marginTop: '2%' }}>
           <Image
             src={LoadingSpinner}
             height="100"
