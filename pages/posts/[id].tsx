@@ -21,53 +21,55 @@ const Post = (props: any) => {
       <p style={{ margin: '1% 3% 1%', width: '80%', lineHeight: '1.6' }}>
         {post.content}
       </p>
-      <br style={{ marginBottom: '10px' }} />
-      <Link href={'/posts/edit/' + post._id} passHref={true}>
+      <div>
+        <Link href={'/posts/edit/' + post._id} passHref={true}>
+          <button
+            style={{
+              marginLeft: '3%',
+              marginBottom: '10px',
+              width: '100px',
+              padding: '6px',
+              backgroundColor: '#007bff',
+              borderRadius: '7px',
+              border: '1px solid black',
+              color: '#fff',
+              cursor: 'pointer',
+              fontSize: '.85rem',
+            }}
+          >
+            Edit Post
+          </button>
+        </Link>
+        {/* <br style={{ marginBottom: '15px' }} /> */}
         <button
           style={{
-            marginLeft: '3%',
+            marginLeft: '1%',
             width: '100px',
             padding: '6px',
-            backgroundColor: '#007bff',
+            backgroundColor: '#dc3545',
             borderRadius: '7px',
             border: '1px solid black',
             color: '#fff',
             cursor: 'pointer',
             fontSize: '.85rem',
           }}
+          onClick={async () => {
+            const response = await fetch(
+              'http://localhost:3000/api/posts/' + post._id,
+              {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+              }
+            ).then((result) => {
+              router.push('/posts');
+            });
+          }}
         >
-          Edit Post
+          Delete Post
         </button>
-      </Link>
-      <br style={{ marginBottom: '15px' }} />
-      <button
-        style={{
-          marginLeft: '3%',
-          width: '100px',
-          padding: '6px',
-          backgroundColor: '#dc3545',
-          borderRadius: '7px',
-          border: '1px solid black',
-          color: '#fff',
-          cursor: 'pointer',
-          fontSize: '.85rem',
-        }}
-        onClick={async () => {
-          const response = await fetch(
-            'http://localhost:3000/api/posts/' + post._id,
-            {
-              method: 'DELETE',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-            }
-          ).then((result) => {
-            router.push('/posts');
-          });
-        }}
-      >
-        Delete Post
-      </button>
+      </div>
     </div>
   );
 };
