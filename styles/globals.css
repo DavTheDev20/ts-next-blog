@@ -10,3 +10,25 @@
 .Home {
   overflow: hidden;
 }
+
+.Home .content-area {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 7%;
+}
+
+.Home .content-area-text {
+  display: flex;
+  justify-content: center;
+  font-size: 1.15rem;
+}
+
+.content-area-text h2 {
+  width: 15%;
+  text-align: right;
+  margin: 0 1.5%;
+}
+
+.content-area-text p {
+  width: 25%;
+}

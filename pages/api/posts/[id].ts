@@ -46,7 +46,6 @@ export default async function handler(req: any, res: any) {
         dateCreated: postToUpdate.dateCreated,
         dateUpdated: new Date(),
       };
-      console.log(updatedPost);
       const updatedPostResult = await Post.replaceOne({ _id: id }, updatedPost);
 
       if (!updatedPostResult) {
