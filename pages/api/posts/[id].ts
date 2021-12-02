@@ -40,7 +40,13 @@ export default async function handler(req: any, res: any) {
         return;
       }
 
-      const updatedPost = req.body;
+      const updatedPostData = req.body;
+      const updatedPost = {
+        ...updatedPostData,
+        dateCreated: postToUpdate.dateCreated,
+        dateUpdated: new Date(),
+      };
+      console.log(updatedPost);
       const updatedPostResult = await Post.replaceOne({ _id: id }, updatedPost);
 
       if (!updatedPostResult) {

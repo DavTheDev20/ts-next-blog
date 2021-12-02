@@ -5,6 +5,12 @@ import router from 'next/router';
 
 const Post = (props: any) => {
   const post = props.data;
+  const dateOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  };
   return (
     <div>
       <Jumbotron content={post.title} />
@@ -16,8 +22,27 @@ const Post = (props: any) => {
           fontSize: '1rem',
         }}
       >
-        Posted On: {post.dateCreated.slice(0, 10)}
+        Posted On:{' '}
+        {new Date(post.dateCreated).toLocaleDateString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        })}
       </h3>
+      {post.dateUpdated ? (
+        <h5
+          style={{ marginLeft: '3%', marginTop: '8px', marginBottom: '15px' }}
+        >
+          Updated On:{' '}
+          {new Date(post.dateUpdated).toLocaleDateString('en-US', {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </h5>
+      ) : null}
       <p style={{ margin: '1% 3% 1%', width: '80%', lineHeight: '1.6' }}>
         {post.content}
       </p>
