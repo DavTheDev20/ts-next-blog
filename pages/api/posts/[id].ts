@@ -41,6 +41,15 @@ export default async function handler(req: any, res: any) {
       }
 
       const updatedPostData = req.body;
+
+      if (
+        updatedPostData.title === postToUpdate.title &&
+        updatedPostData.content === postToUpdate.content
+      ) {
+        res.status(400).json({ error: 'no update made to post' });
+        return;
+      }
+
       const updatedPost = {
         ...updatedPostData,
         dateCreated: postToUpdate.dateCreated,

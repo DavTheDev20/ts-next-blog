@@ -12,3 +12,17 @@
   width: 30%;
   list-style: none;
 }
+
+.container a {
+  text-decoration: none;
+  color: #036ee0;
+  font-weight: 600;
+}
+
+.container a:hover {
+  color: #68a9ee;
+}
+
+.container a:active {
+  color: red;
+}

@@ -8,6 +8,7 @@ import Image from 'next/image';
 const Posts: NextPage = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [reverseOrder, setReverseOrder] = useState(false);
 
   const getPosts = async () => {
     const response = await fetch('http://localhost:3000/api/posts');
@@ -24,6 +25,21 @@ const Posts: NextPage = () => {
   return (
     <div>
       <Jumbotron content="Posts" />
+      <select
+        name="filter"
+        id="postsFilter"
+        style={{ marginLeft: '3%', marginTop: '15px' }}
+        onChange={(event) => {
+          if (event.target.value === 'oldestFirst') {
+            setReverseOrder(false);
+          } else if (event.target.value === 'newestFirst') {
+            setReverseOrder(true);
+          }
+        }}
+      >
+        <option value="oldestFirst">Oldest first</option>
+        <option value="newestFirst">Newest first</option>
+      </select>
       {isLoading ? (
         <div style={{ marginLeft: '3%', marginTop: '2%' }}>
           <Image
@@ -36,26 +52,49 @@ const Posts: NextPage = () => {
       ) : null}
 
       <div className="posts">
-        {posts.map((post: any) => {
-          return (
-            <div
-              key={post['_id']}
-              className="post"
-              style={{
-                margin: '2.5%',
-                borderBottom: '1px solid grey',
-                width: '25%',
-                paddingBottom: '1%',
-              }}
-            >
-              <h2 style={{ marginBottom: '5px' }}>{post['title']}</h2>
-              <p>
-                {post['content'].slice(0, 25) + '... '}
-                <Link href={'/posts/' + post['_id']}>Read More</Link>
-              </p>
-            </div>
-          );
-        })}
+        {!reverseOrder
+          ? posts.map((post: any) => {
+              return (
+                <div
+                  key={post['_id']}
+                  className="post"
+                  style={{
+                    margin: '2% 3%',
+                    borderBottom: '1px solid grey',
+                    width: '25%',
+                    paddingBottom: '1%',
+                  }}
+                >
+                  <h2 style={{ marginBottom: '5px' }}>{post['title']}</h2>
+                  <p>
+                    {post['content'].slice(0, 25) + '... '}
+                    <Link href={'/posts/' + post['_id']}>Read More</Link>
+                  </p>
+                </div>
+              );
+            })
+          : posts
+              .map((post: any) => {
+                return (
+                  <div
+                    key={post['_id']}
+                    className="post"
+                    style={{
+                      margin: '2.5%',
+                      borderBottom: '1px solid grey',
+                      width: '25%',
+                      paddingBottom: '1%',
+                    }}
+                  >
+                    <h2 style={{ marginBottom: '5px' }}>{post['title']}</h2>
+                    <p>
+                      {post['content'].slice(0, 25) + '... '}
+                      <Link href={'/posts/' + post['_id']}>Read More</Link>
+                    </p>
+                  </div>
+                );
+              })
+              .reverse()}
       </div>
     </div>
   );

@@ -3,7 +3,9 @@ const Footer = () => {
   const currentYear = currentDate.getFullYear();
 
   return (
-    <footer style={{ textAlign: 'center', marginTop: '13%' }}>
+    <footer
+      style={{ textAlign: 'center', marginTop: '12%', marginBottom: '1%' }}
+    >
       <small>© {currentYear} Davin Reid</small>
     </footer>
   );
